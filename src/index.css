@@ -17,3 +17,9 @@ code {
   display: flex;
   justify-content: center;
 }
+
+.login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
