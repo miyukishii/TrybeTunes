@@ -23,3 +23,8 @@ code {
   flex-direction: column;
   align-items: center;
 }
+
+.albums-section {
+  display: flex;
+  flex-wrap: wrap;
+}

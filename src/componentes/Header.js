@@ -34,9 +34,7 @@ class Header extends React.Component {
         {user
         && (
           <h2 data-testid="header-user-name">
-            Olá,
-            { user }
-            !
+            {` Olá, ${user} :) `}
           </h2>)}
         <nav className="nav-bar">
           <Link to="/search" data-testid="link-to-search">Search</Link>
