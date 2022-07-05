@@ -46,9 +46,11 @@ class Login extends React.Component {
 
   render() {
     const { nameinput, buttonDisabled, loading, createNewUser } = this.state;
+    if (loading) {
+      return <Loading />;
+    }
     return (
       <form className="login-section" data-testid="page-login">
-        {loading && <Loading />}
         <label htmlFor="nameinput">
           Name
           <input
@@ -62,7 +64,7 @@ class Login extends React.Component {
         </label>
         <button
           data-testid="login-submit-button"
-          type="submit"
+          type="button"
           disabled={ buttonDisabled }
           onClick={ this.handleButton }
         >

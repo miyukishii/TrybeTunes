@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-indent-props */
 import React from 'react';
-// import AlbumSearch from '../componentes/AlbumSearch';
 import Card from '../componentes/Card';
 import Header from '../componentes/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
@@ -39,7 +37,6 @@ class Search extends React.Component {
 
   fetchAlbums = async (searchinput) => {
     const artistAlbum = await searchAlbumsAPI(searchinput);
-    console.log(artistAlbum);
     this.setState({
       artist: searchinput,
       searchinput: '',
