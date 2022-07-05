@@ -45,7 +45,7 @@ class Album extends React.Component {
         <h3 data-testid="album-name">{item.collectionName}</h3>
         {artistMusics.map((music) => (
           <MusicCard
-            key={ artistMusics.trackId }
+            key={ music.trackId }
             music={ music }
           />
         ))}
