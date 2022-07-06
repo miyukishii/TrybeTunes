@@ -4,13 +4,14 @@ import Header from '../componentes/Header';
 import Loading from './Loading';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../componentes/MusicCard';
+// import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
     super();
     this.state = {
       artistMusics: '',
-      item: '',
+      albumData: '',
       loading: true,
     };
   }
@@ -24,23 +25,23 @@ class Album extends React.Component {
       loading: true,
     }, async () => {
       const { match } = this.props;
-      const [item, ...artistMusics] = await getMusics(match.params.id);
+      const [albumData, ...artistMusics] = await getMusics(match.params.id);
       this.setState({
         artistMusics: [...artistMusics],
-        item,
+        albumData,
         loading: false,
       });
     });
   }
 
   render() {
-    const { artistMusics, loading, item } = this.state;
+    const { artistMusics, loading, albumData } = this.state;
     if (loading) return <Loading />;
     return (
       <div data-testid="page-album">
         <Header />
-        <h2 data-testid="artist-name">{item.artistName}</h2>
-        <h3 data-testid="album-name">{item.collectionName}</h3>
+        <h2 data-testid="artist-name">{albumData.artistName}</h2>
+        <h3 data-testid="album-name">{albumData.collectionName}</h3>
         {artistMusics.map((music) => (
           <MusicCard
             key={ music.trackId }

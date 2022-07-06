@@ -29,13 +29,16 @@ class Header extends React.Component {
   render() {
     const { loading, user } = this.state;
     return (
-      <header data-testid="header-component">
+      <header data-testid="header-component" className="header-section">
         {loading && <Loading />}
         {user
         && (
           <h2 data-testid="header-user-name">
-            {/* {` Olá, ${user} :) `} */}
-            <h3>{ user }</h3>
+            <div className="render-login-name">
+              <p>Olá, </p>
+              <p>{ user }</p>
+              <p> :) </p>
+            </div>
           </h2>)}
         <nav className="nav-bar">
           <Link to="/search" data-testid="link-to-search">Search</Link>
