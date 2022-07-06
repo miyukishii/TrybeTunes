@@ -50,6 +50,7 @@ class MusicCard extends React.Component {
     }, async () => {
       const { favoriteSong } = this.state;
       const music = await getMusics(id);
+      this.fetchFavorites();
       // console.log(music);
       if (!favoriteSong) {
         await addSong(...music);
@@ -59,6 +60,7 @@ class MusicCard extends React.Component {
         });
       } else {
         await removeSong(...music);
+        this.fetchFavorites();
         this.setState({
           loading: false,
           favoriteSong: false,
