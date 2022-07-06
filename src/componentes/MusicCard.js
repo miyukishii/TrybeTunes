@@ -13,36 +13,36 @@ class MusicCard extends React.Component {
   }
 
   handleChange = ({ target }) => {
+    const { id, checked } = target;
     this.setState({
       loading: true,
+      favoriteSong: checked,
     }, async () => {
       const { favoriteSong } = this.state;
-      if (!favoriteSong) {
-        await addSong(target.name);
+      if (favoriteSong) {
+        await addSong(id);
         this.setState({
           loading: false,
-          favoriteSong: true,
         });
       } else {
-        await removeSong(target.name);
+        await removeSong(id);
         this.setState({
           loading: false,
-          favoriteSong: false,
         });
       }
     });
   }
 
   render() {
-    const { music } = this.props;
+    const { musicData } = this.props;
     const { loading, favoriteSong } = this.state;
     if (loading) return <Loading />;
     return (
       <div>
-        <p>{ music.trackName }</p>
+        <p>{ musicData.trackName }</p>
         <audio
           data-testid="audio-component"
-          src={ music.previewUrl }
+          src={ musicData.previewUrl }
           controls
         >
           <track kind="captions" />
@@ -51,14 +51,14 @@ class MusicCard extends React.Component {
           <code>audio</code>
         </audio>
         <label
-          data-testid={ `checkbox-music-${music.trackId}` }
-          htmlFor={ music.trackName }
+          data-testid={ `checkbox-music-${musicData.trackId}` }
+          htmlFor={ musicData.trackName }
         >
           Favorita
           <input
             type="checkbox"
-            id={ music.trackName }
-            name={ music.trackName }
+            id={ musicData.trackId }
+            name={ musicData.trackName }
             checked={ favoriteSong }
             onChange={ this.handleChange }
           />
@@ -69,10 +69,11 @@ class MusicCard extends React.Component {
 }
 
 MusicCard.propTypes = {
-  music: PropTypes.shape({
-    trackName: PropTypes.string,
-    previewUrl: PropTypes.string,
-    trackId: PropTypes.number,
+//   favoriteList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  musicData: PropTypes.shape({
+    trackName: PropTypes.string.isRequired,
+    previewUrl: PropTypes.string.isRequired,
+    trackId: PropTypes.number.isRequired,
   }).isRequired,
 };
 

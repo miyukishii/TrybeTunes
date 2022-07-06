@@ -25,8 +25,6 @@ class Album extends React.Component {
     }, async () => {
       const { match } = this.props;
       const [item, ...artistMusics] = await getMusics(match.params.id);
-      // console.log(artistMusics);
-      // console.log(item);
       this.setState({
         artistMusics: [...artistMusics],
         item,
@@ -46,7 +44,7 @@ class Album extends React.Component {
         {artistMusics.map((music) => (
           <MusicCard
             key={ music.trackId }
-            music={ music }
+            musicData={ music }
           />
         ))}
       </div>
