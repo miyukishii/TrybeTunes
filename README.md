@@ -1,10 +1,10 @@
-## **Bem-vindo ao repositório do projeto Trybetunes**
+## **Bem-vindo ao repositório do projeto Trybe Tunes**
 
-### Trybetunes
+### Trybe Tunes
 ![Screenshot da tela inicial](trybetune.gif)
 
 ### Contexto
-No projeto Trybetunes foi desenvolvido uma aplicação...
+No projeto Trybe Tunes foi desenvolvido uma aplicação...
 
 ### Tecnologias utilizadas
 Projeto desenvolvido utilizando React...
