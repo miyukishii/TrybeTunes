@@ -1,0 +1,42 @@
+@import url('./Login.css') ;
+
+@import url('./Loading.css') ;
+
+@import url('./Header.css') ;
+
+@import url('./Search.css') ;
+
+@import url('./Album.css') ;
+
+@import url('./Favorites.css') ;
+
+@import url('./Profile.css') ;
+
+@import url('./ProfileEdit.css') ;
+
+:root {
+
+  --bg-color: linear-gradient(to bottom, #b72d7b, #c15e9a, #cb86b6, #d5abcd, #e1cfe1);
+
+  --input-color: rgb(78, 0, 68);
+
+  --button-bg: #901d72;
+
+  --button-disabled: #d890b8;
+
+  --button-hover: #8a1b6c;
+
+  --color-primary: white;
+
+  --color-secundary: #c4a8a8a1;
+
+}
+
+body {
+  background: var(--bg-color);
+  background-repeat: no-repeat;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}

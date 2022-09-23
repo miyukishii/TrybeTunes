@@ -1,15 +1,21 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../componentes/Header';
-import { getUser } from '../services/userAPI';
+import { getUser, updateUser } from '../services/userAPI';
+import Loading from '../componentes/Loading';
 
 class ProfileEdit extends React.Component {
   constructor() {
     super();
     this.state = {
-      userData: {},
+      loading: false,
       gotUser: false,
       isDisabled: true,
+      userUpdated: false,
       name: '',
+      email: '',
+      description: '',
+      image: '',
     };
   }
 
@@ -20,29 +26,85 @@ class ProfileEdit extends React.Component {
   fetchUser = async () => {
     const userData = await getUser();
     this.setState({
-      userData,
       gotUser: true,
-      name: userData.name,
+      name: !userData.name ? '' : userData.name,
+      email: !userData.email ? '' : userData.email,
+      description: !userData.description ? '' : userData.description,
+      image: !userData.image ? '' : userData.image,
+    });
+  }
+
+  verifyKeys = () => {
+    const { name, description, image, email } = this.state;
+    const minKeysLength = 3;
+    if (name.length >= minKeysLength
+      && description.length >= minKeysLength
+      && image.length >= minKeysLength
+      && email.length >= minKeysLength) {
+      this.setState({
+        isDisabled: false,
+      });
+    } else {
+      this.setState({
+        isDisabled: true,
+      });
+    }
+  }
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    }, this.verifyKeys);
+  }
+
+  handleButton = () => {
+    this.setState({
+      loading: true,
+    }, async () => {
+      const { name, description, image, email } = this.state;
+      const userDataEdited = {
+        name,
+        description,
+        image,
+        email,
+      };
+      await updateUser(userDataEdited);
+      this.setState({
+        loading: false,
+        userUpdated: true,
+      });
     });
   }
 
   render() {
-    const { userData, gotUser, isDisabled, name } = this.state;
+    const {
+      loading,
+      gotUser,
+      isDisabled,
+      name,
+      email,
+      description,
+      image,
+      userUpdated } = this.state;
+    if (loading) return <Loading />;
     return (
       <div data-testid="page-profile-edit">
         <Header />
-        {gotUser
+        <section className="edit-profile">
+          {gotUser
         && (
-          <form className="edit-profile">
+          <form className="edit-profile-form">
             <label htmlFor="name-input-edit">
-              Nome:
+              Name:
               <input
+                className="input-text"
                 data-testid="edit-input-name"
                 type="text"
-                name="name-input-edit"
+                name="name"
                 id="name-input-edit"
                 value={ name }
-                placeholder="Digite o nome"
+                onChange={ this.handleChange }
               />
             </label>
             <label
@@ -51,47 +113,54 @@ class ProfileEdit extends React.Component {
             >
               E-mail:
               <input
+                className="input-text"
                 type="email"
                 id="email-input-edit"
-                name="email-input-edit"
-                value={ userData }
-                placeholder="Digite o e-mail"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
               />
             </label>
             <label
               data-testid="edit-input-description"
               htmlFor="description-input-edit"
             >
-              Descrição:
+              Description:
               <textarea
+                className="input-text"
                 type="textarea"
                 id="description-input-edit"
-                name="description-input-edit"
-                placeholder="Digite uma breve descrição"
+                name="description"
+                value={ description }
+                onChange={ this.handleChange }
               />
             </label>
             <label
               data-testid="edit-input-image"
               htmlFor="image-input-edit"
             >
-              Imagem:
+              Picture:
               <input
+                className="input-text"
                 type="text"
                 id="image-input-edit"
-                name="image-input-edit"
-                placeholder="Anexe uma foto"
+                name="image"
+                value={ image }
+                onChange={ this.handleChange }
               />
             </label>
             <button
               type="button"
               data-testid="edit-button-save"
               disabled={ isDisabled }
-              onChange={ () => {} }
+              onClick={ this.handleButton }
             >
               Salvar alterações
             </button>
           </form>
         )}
+          {userUpdated && <Redirect to="/profile" />}
+        </section>
       </div>
     );
   }

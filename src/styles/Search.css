@@ -1,0 +1,101 @@
+.search-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.searchForm {
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  width: 90%;
+}
+
+.searchForm .input-text {
+  background-color: rgb(236, 226, 235);
+}
+
+.search-button {
+  background-color: var(--button-bg);
+  border-radius: 5px;
+  color: var(--color-primary);
+  font-weight: 700;
+  height: 2.5em;
+  margin-left: 1.5em;
+  width: 100px;
+}
+
+.search-button:disabled {
+  background-color: var(--button-disabled);
+}
+
+.search-button:not( [ disabled ] ):hover {
+  background-color: var(--button-hover);
+  transform: scale(1.03);
+}
+
+.search-result-none {
+  color: var(--color-primary);
+  font-size: 1.5em;
+  height: 100vh;
+}
+
+.albums-section {
+  border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: center;
+  width: 90vw;
+}
+
+.search-result {
+  color: var(--color-primary);
+  font-size: 1.5em;
+}
+
+.albums {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 90%;
+}
+
+.album-card {
+  align-items: center;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0.5em;
+  padding: 0.5em;
+  text-align: center;
+  width: 200px;
+}
+
+.album-card img {
+  margin: 0.5em 0;
+  width: 100px;
+}
+
+.album-card p {
+  margin: 0.5em 0;
+}
+
+.album-info {
+  background-color: var(--button-bg);
+  border-radius: 5px;
+  color: var(--color-primary);
+  font-size: 0.8em;
+  height: 1.5em;
+  padding-top: 5px;
+  text-decoration: none;
+  width: 100px;
+}
+

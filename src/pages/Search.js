@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../componentes/Card';
 import Header from '../componentes/Header';
+import Loading from '../componentes/Loading';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends React.Component {
@@ -10,9 +11,9 @@ class Search extends React.Component {
       searchinput: '',
       artist: '',
       buttonDisabled: true,
-      loading: false,
+      gotAlbums: false,
       artistAlbum: [],
-      findAlbum: false,
+
     };
   }
 
@@ -40,44 +41,45 @@ class Search extends React.Component {
     this.setState({
       artist: searchinput,
       searchinput: '',
-      loading: false,
+      gotAlbums: false,
       artistAlbum,
-      findAlbum: true,
       buttonDisabled: true,
     });
-  }
+  };
 
   handleButton = () => {
     const { searchinput } = this.state;
     this.setState({
-      loading: true,
+      gotAlbums: true,
     }, async () => this.fetchAlbums(searchinput));
   }
 
   render() {
-    const { searchinput,
-      buttonDisabled, loading, findAlbum, artistAlbum,
+    const {
       artist,
+      artistAlbum,
+      searchinput,
+      buttonDisabled,
+      gotAlbums,
     } = this.state;
+
     return (
-      <div data-testid="page-search">
+      <div data-testid="page-search" className="page">
         <Header />
-        {!loading
-        && (
-          <form className="seachForm">
-            <label htmlFor="searchinput">
-              Name
-              <input
-                data-testid="search-artist-input"
-                type="text"
-                id="searchinput"
-                placeholder="Digite o nome do artista"
-                name="searchinput"
-                value={ searchinput }
-                onChange={ this.handleChange }
-              />
-            </label>
+        <section className="search-section">
+          <form className="searchForm">
+            <input
+              className="input-text"
+              data-testid="search-artist-input"
+              type="text"
+              id="searchinput"
+              placeholder="Search for an artist"
+              name="searchinput"
+              value={ searchinput }
+              onChange={ this.handleChange }
+            />
             <button
+              className="search-button"
               data-testid="search-artist-button"
               type="button"
               disabled={ buttonDisabled }
@@ -86,33 +88,15 @@ class Search extends React.Component {
               Pesquisar
             </button>
           </form>
-        )}
-        { (artistAlbum.length === 0 && findAlbum)
-          ? <p>Nenhum álbum foi encontrado</p>
-          : (
-            <div className="albums-section">
-              <p>
-                Resultado de álbuns de:
-                { ` ${artist}` }
-              </p>
-              {artistAlbum.map(({
-                collectionId,
-                artistName,
-                collectionName,
-                artworkUrl100,
-              }) => (
-                <Card
-                  key={ collectionId }
-                  collectionId={ collectionId }
-                  artistName={ artistName }
-                  collectionName={ collectionName }
-                  artworkUrl100={ artworkUrl100 }
-                />
-              ))}
-            </div>
-          )}
-      </div>
-    );
+          { gotAlbums
+            ? <Loading />
+            : (
+              <Card
+                albums={ artistAlbum }
+                artist={ artist }
+              />)}
+        </section>
+      </div>);
   }
 }
 

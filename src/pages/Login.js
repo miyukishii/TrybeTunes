@@ -1,7 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
-import Loading from './Loading';
+import Loading from '../componentes/Loading';
+import audio from '../images/audio.png';
 
 class Login extends React.Component {
   constructor() {
@@ -50,28 +51,33 @@ class Login extends React.Component {
       return <Loading />;
     }
     return (
-      <form className="login-section" data-testid="page-login">
-        <label htmlFor="nameinput">
-          Name
+      <main className="login-section">
+        <form className="login-form" data-testid="page-login">
+          <img src={ audio } alt="audio icon" className="login-icon" />
+          <h1>Trybe Tunes</h1>
           <input
+            className="input-text"
             data-testid="login-name-input"
             type="text"
             id="nameinput"
             name="nameinput"
+            placeholder="Type your name"
             value={ nameinput }
             onChange={ this.handleChange }
           />
-        </label>
-        <button
-          data-testid="login-submit-button"
-          type="button"
-          disabled={ buttonDisabled }
-          onClick={ this.handleButton }
-        >
-          Entrar
-        </button>
-        {createNewUser && <Redirect to="/search" />}
-      </form>
+
+          <button
+            className="login-button"
+            data-testid="login-submit-button"
+            type="button"
+            disabled={ buttonDisabled }
+            onClick={ this.handleButton }
+          >
+            Entrar
+          </button>
+          {createNewUser && <Redirect to="/search" />}
+        </form>
+      </main>
     );
   }
 }
