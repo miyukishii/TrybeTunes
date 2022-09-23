@@ -1,7 +1,7 @@
 ## **Bem-vindo ao repositório do projeto Trybetunes**
 
 ### Trybetunes
-![Screenshot da tela inicial](trybetunes.gif)
+![Screenshot da tela inicial](trybetune.gif)
 
 ### Contexto
 No projeto Trybetunes foi desenvolvido uma aplicação...
